@@ -1,0 +1,15 @@
+# 基础依赖
+logging
+typing
+dataclasses
+python-dotenv>=1.0.0
+
+# OCR相关依赖
+pytesseract>=0.3.10
+pillow>=10.0.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# 浏览器自动化相关依赖
+selenium>=4.15.0
+playwright>=1.40.0

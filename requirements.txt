@@ -1,0 +1,4 @@
+logging
+typing
+dataclasses
+python-dotenv>=1.0.0
