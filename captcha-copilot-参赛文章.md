@@ -86,6 +86,117 @@
 3. **系统集成**：在系统集成过程中遇到的验证码验证
 4. **个人自动化**：个人用户在合法使用网站服务时遇到的验证码
 
+## 使用指南
+
+### 1. 安装步骤
+
+#### 步骤 1：下载项目
+![下载项目截图](images/01-download-project.png)
+
+访问 GitHub 仓库：https://github.com/280832849/captcha-copilot
+
+您可以通过以下方式获取项目：
+
+**方式一：Git 克隆**
+```bash
+git clone https://github.com/280832849/captcha-copilot.git
+```
+
+**方式二：直接下载**
+1. 点击仓库页面的 "Code" 按钮
+2. 选择 "Download ZIP"
+3. 解压下载的文件
+
+#### 步骤 2：安装到 TRAE Skill
+![安装到 TRAE Skill](images/02-copy-to-skills.png)
+
+1. 找到 TRAE skills 目录位置：
+   - macOS: `~/Library/Trae/skills/`
+   - Windows: `%APPDATA%\Trae\skills\`
+   - Linux: `~/.trae/skills/`
+
+2. 将 `captcha-copilot` 文件夹复制到上述目录
+
+3. 重启 TRAE 应用
+
+#### 步骤 3：安装依赖
+![安装依赖](images/03-install-dependencies.png)
+
+在终端中执行：
+```bash
+# 安装基础依赖
+pip install selenium requests opencv-python numpy pillow
+
+# 安装完整依赖（可选）
+pip install baidu-aip pytesseract playwright undetected-chromedriver
+```
+
+### 2. 使用方法
+
+#### 自动调用
+![自动调用](images/04-auto-invoke.png)
+
+当您在使用 TRAE AI 时，如果遇到验证码相关问题，captcha-copilot 会自动触发，无需手动操作。
+
+#### 手动调用
+您也可以通过以下自然语言指令手动调用：
+
+![手动调用示例](images/05-manual-invoke.png)
+
+- "帮我处理这个图片验证码"
+- "识别这个滑动验证码"
+- "处理这个数学运算验证码"
+- "生成验证码处理代码"
+
+### 3. 配置说明
+![配置说明](images/06-env-config.png)
+
+如需使用高级功能（如 OCR 识别），可以配置 API 密钥：
+
+1. 在项目根目录创建 `.env` 文件
+
+2. 填写以下配置：
+```env
+# 百度OCR
+BAIDU_APP_ID=your_app_id
+BAIDU_API_KEY=your_api_key
+BAIDU_SECRET_KEY=your_secret_key
+
+# 验证码处理服务
+EZCAPTCHA_API_KEY=your_key
+```
+
+### 4. 代码示例
+
+#### 示例 1：处理图形验证码
+![处理图形验证码](images/07-image-captcha.png)
+
+```python
+from captcha_solver import solve_captcha
+
+# 处理图形验证码
+result = solve_captcha('image', image_path='captcha.png')
+print(f"识别结果: {result}")
+```
+
+#### 示例 2：处理滑动验证码
+![处理滑动验证码](images/08-slider-captcha.png)
+
+```python
+from captcha_solver import CaptchaSolver
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://example.com/login')
+
+solver = CaptchaSolver()
+# 处理滑动验证码
+solver.solve_captcha('slider', 
+                   driver=driver,
+                   slider_selector='.slider',
+                   bg_selector='.bg')
+```
+
 ## 效果与总结
 
 ### 效率提升
